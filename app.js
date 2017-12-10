@@ -30,7 +30,7 @@ app.get('/', function(req, res){
 
 app.use("/",authRoutes);
 
-
-app.listen(5000, process.env.IP, function(){
+var PORT = process.env.PORT || 5000;
+app.listen(PORT, process.env.IP, function(){
     console.log('Server started');
 });
