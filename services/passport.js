@@ -21,7 +21,8 @@ passport.use(
         {
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: process.env.CALLBACKURL || 'https://react-js-romainberthome.c9users.io/auth/google/callback'
+            callbackURL: process.env.CALLBACKURL || 'https://react-js-romainberthome.c9users.io/auth/google/callback',
+            proxy: true
         }, function(accessToken, refreshToken, profile, done){
             User.findOne({ googleId: profile.id})
             .then(function(existingUser){
