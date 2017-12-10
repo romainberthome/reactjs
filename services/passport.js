@@ -2,11 +2,11 @@ var passport = require("passport"),
     GoogleStrategy = require("passport-google-oauth20").Strategy,
     keys = require("../config/keys");
 
-    
+
 var User = require("../models/User");
 
 passport.serializeUser(function(user, done){
-   done(null, user.id); 
+   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done){
@@ -21,13 +21,13 @@ passport.use(
         {
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: process.env.CALLBACKURL || 'https://react-js-romainberthome.c9users.io/auth/google/callback',
+            callbackURL: process.env.CALLBACKURL || '/auth/google/callback',
             proxy: true
         }, function(accessToken, refreshToken, profile, done){
             User.findOne({ googleId: profile.id})
             .then(function(existingUser){
                 if(existingUser){
-                  done(null, existingUser);  
+                  done(null, existingUser);
                 } else{
                    new User({ googleId: profile.id}).save()
                    .then(function(user){
@@ -37,6 +37,3 @@ passport.use(
             })
     })
 );
-
-
-

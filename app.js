@@ -6,7 +6,7 @@ var express = require("express"),
 
 var keys = require("./config/keys");
 
-require("./models/User");   
+require("./models/User");
 require("./services/passport");
 
 var authRoutes = require("./routes/authroutes");
@@ -21,7 +21,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-var url = process.env.DATABASEURL || "mongodb://localhost/emaily" ; 
+var url = process.env.DATABASEURL || keys.mongoUri ;
 mongoose.connect(url);
 
 app.get('/', function(req, res){
@@ -31,6 +31,6 @@ app.get('/', function(req, res){
 app.use("/",authRoutes);
 
 
-app.listen(8081, process.env.IP, function(){
+app.listen(5000, process.env.IP, function(){
     console.log('Server started');
 });
